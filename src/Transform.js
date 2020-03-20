@@ -1,5 +1,7 @@
 import React from 'react';
-var perf =require('./template_banner/FR/160x600/test.html');
+import html from './template_banner/FR/160x600/index.html';
+
+var testhtml = html;
 
 class Transform extends React.Component{
     constructor(props){
@@ -9,7 +11,7 @@ class Transform extends React.Component{
         // return null;
         return(
             <div>
-                 <iframe src={perf }></iframe>
+              {testhtml}
             </div>
         );
     }

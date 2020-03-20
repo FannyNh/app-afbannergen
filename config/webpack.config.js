@@ -499,6 +499,12 @@ module.exports = function(webpackEnv) {
                 name: 'static/media/[name].[hash:8].[ext]',
               },
             },
+            //news loaders
+            //html loader
+            {
+              test: /\.html$/i,
+              loader: 'html-loader',
+            },
             // ** STOP ** Are you adding a new loader?
             // Make sure to add the new loader(s) before the "file" loader.
           ],

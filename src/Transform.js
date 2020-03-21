@@ -1,7 +1,6 @@
 import React from 'react';
 import html from './template_banner/FR/160x600/index.html';
 
-var testhtml = html;
 
 class Transform extends React.Component{
     constructor(props){

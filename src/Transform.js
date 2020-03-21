@@ -6,12 +6,20 @@ var testhtml = html;
 class Transform extends React.Component{
     constructor(props){
     super(props);
+    this.stringsChanger=this.stringsChanger.bind(this);
+    }
+    //methode
+    stringsChanger = (props)=>{
+        var htmlToReplace = props;
+        var newhtml = htmlToReplace.replace("HEADLINE__replace", this.props.head);
+        return newhtml;
     }
     render(){
+        
         // return null;
         return(
             <div>
-              {testhtml}
+              {this.stringsChanger(html)}
             </div>
         );
     }

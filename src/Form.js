@@ -1,8 +1,8 @@
 import React from 'react';
 import Transform from './Transform';
 import html from './template_banner/FR/160x600/index.html';
-
-
+import JSZip from 'jszip'
+import { saveAs } from 'file-saver';
 
 class Form extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class Form extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.stringsChanger = this.stringsChanger.bind(this);
     this.exportFiles = this.exportFiles.bind(this);
-    this.downloadTxtFile = this.downloadTxtFile.bind(this);
+    this.zipFiles = this.zipFiles.bind(this);
   }
   //methode
   stringsChanger = (props) => {
@@ -30,21 +30,24 @@ class Form extends React.Component {
 
     //export
     console.log('yolo');
-    this.downloadTxtFile();
+    this.zipFiles();
     // this.setState({ export: false });
 
   }
-  downloadTxtFile = () => {
-    const element = document.createElement("a");
-    const file = new Blob([this.stringsChanger(html)], { type: 'text/plain' });
-    element.href = URL.createObjectURL(file);
-    element.download = "index.html";
-    document.body.appendChild(element); // Required for this to work in FireFox
-    element.click();
+
+
+  zipFiles = () => {
+    var zip = new JSZip();
+    zip.file("index.html", this.stringsChanger(html));
+    var urlAssets = './template_banner/FR/160x600/assets';
+    zip.folder(urlAssets);
+    zip.generateAsync({ type: "blob" })
+      .then(function (content) {
+        // see FileSaver.js
+        saveAs(content, "example.zip");
+      });
   }
-  zipFiles = () =>{
-    
-  }
+
   handleChange = (event) => {
     if (event.target.name === "headline") {
       if (true) { }

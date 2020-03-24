@@ -1,6 +1,7 @@
 import React from 'react';
-import Transform from './Transform';
 import html from './template_banner/FR/160x600/index.html';
+import imgTest from './template_banner/FR/160x600/assets/images/picture_wow.jpg';
+import cssTest from './template_banner/FR/160x600/assets/styles/main.css';
 import JSZip from 'jszip'
 import { saveAs } from 'file-saver';
 
@@ -27,24 +28,24 @@ class Form extends React.Component {
     return newhtml;
   }
   exportFiles = (props) => {
-
     //export
-    console.log('yolo');
     this.zipFiles();
-    // this.setState({ export: false });
-
   }
 
 
   zipFiles = () => {
+    // create a file and a folder
     var zip = new JSZip();
+    var img = zip.folder("assets/images");
+    var css = zip.folder("assets/styles");
     zip.file("index.html", this.stringsChanger(html));
-    var urlAssets = './template_banner/FR/160x600/assets';
-    zip.folder(urlAssets);
+    img.file("picture_wow.jpg", imgTest);
+    css.file("main.css", cssTest);
+  
     zip.generateAsync({ type: "blob" })
       .then(function (content) {
         // see FileSaver.js
-        saveAs(content, "example.zip");
+        saveAs(content, "example-160x600.zip");
       });
   }
 
@@ -67,8 +68,7 @@ class Form extends React.Component {
     if (event.target.name === "campagnName") { this.setState({ campagnName: event.target.value }); }
   }
 
-  handleSubmit(event) {
-    // this.setState({ export: true }); 
+  handleSubmit(event) { 
     this.exportFiles();
     event.preventDefault();
   }
@@ -91,13 +91,8 @@ class Form extends React.Component {
 
           <input type="submit" value="Envoyer" disabled={false} />
         </form>
-        {this.stringsChanger(html)}
-
-        {/* <Transform
-            head={this.state.headline}
-            slogan1={this.state.slogan1}
-            cta={this.state.cta}
-            export="false" /> */}
+        {/* {this.stringsChanger(html)} */}
+    
       </div>
 
     )
